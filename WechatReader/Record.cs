@@ -1,5 +1,6 @@
 ﻿namespace WechatReader
 {
+    // Represents a piece of record in a chat session.
     public class Record
     {
         public int MesLocalID;

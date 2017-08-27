@@ -18,6 +18,8 @@ namespace WechatReader
         }
     }
 
+    // These extensions wrap the `SQLiteDataReader.Get...` methods and return default values
+    // for the chosen datatype if that field is `null` in DB.
     static class SQLiteDataReaderExtension
     {
         public static string TryGetString(this SQLiteDataReader reader, int i)

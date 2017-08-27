@@ -2,6 +2,7 @@
 
 namespace WechatReader
 {
+    // Represents a user.
     public class Person
     {
         public string UsrName;

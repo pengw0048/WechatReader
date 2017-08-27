@@ -5,6 +5,17 @@ using System.Text;
 
 namespace WechatReader
 {
+    // In `WCDB_Contacts.db`, a couple of columns are stored as a `BLOB` and contain some serialized data.
+    // This class attempts to decode them. We are not aware of the entire format spec yet. Please let me
+    // know if there are new possible fields / types etc.
+    // We now enforce strict checks and will complain whenever the input is different from the spec below.
+    // Speculative  format:
+    // A `blob` is some `sections` concatenated.
+    // A `section` is a `name`, a `number`, and an optional `string`.
+    // `number` is a little-endian variable-length quantity.
+    // A `name` is a byte.
+    //   If `name & 0x2 == 0`, `number` is the value of this section.
+    //   Else, the `number` bytes afterwards are a utf-8 string, the value of this section.
     public static class BlobParser
     {
         public static List<Section> Parse(Stream stream)

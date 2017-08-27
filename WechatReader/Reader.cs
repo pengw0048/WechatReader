@@ -28,6 +28,7 @@ namespace WechatReader
             if (WCDBConn != null) WCDBConn.Dispose();
         }
 
+        // Get information of the current user as a `Person`.
         public Person GetUser()
         {
             var settingsPath = Locator.Locate("mmsetting.archive");
@@ -44,6 +45,7 @@ namespace WechatReader
             return me;
         }
 
+        // Get a list of friends from `MM.sqlite`.
         public List<Person> GetMMFriends()
         {
             var friends = new List<Person>();
@@ -68,6 +70,7 @@ namespace WechatReader
             return friends;
         }
 
+        // Get a list of friends from `WCDB_Contact.sqlite`.
         public List<Person> GetWCDBFriends()
         {
             var friends = new List<Person>();
@@ -101,6 +104,7 @@ namespace WechatReader
             return friends;
         }
 
+        // Get a list of all friends as `Person`s.
         public List<Person> GetFriends()
         {
             var friends = GetMMFriends();
@@ -108,6 +112,8 @@ namespace WechatReader
             return friends;
         }
 
+        // Get a map of friends from string to `Person`s. Will contain duplicated entries for the same persons.
+        // For a `Person`, the keys are: `UsrName`, `MD5(UsrName)`, `Alias`, `MD5(Alias)`.
         public Dictionary<string, Person> GetFriendsDict()
         {
             var dict = new Dictionary<string, Person>();
@@ -124,6 +130,7 @@ namespace WechatReader
             return dict;
         }
 
+        // Get a list of MD5 of `UsrName`s who have chat records with the user.
         public List<string> GetChatSessions()
         {
             var sessions = new List<string>();
@@ -142,6 +149,7 @@ namespace WechatReader
             return sessions;
         }
 
+        // For a given hash, get all records from this person's chat.
         public List<Record> GetChatRecords(string hash)
         {
             var records = new List<Record>();
