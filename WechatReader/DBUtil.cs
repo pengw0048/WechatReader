@@ -26,6 +26,17 @@ namespace WechatReader
             return reader.GetString(i);
         }
 
+        public static int TryGetInt(this SQLiteDataReader reader, int i)
+        {
+            if (reader.IsDBNull(i)) return 0;
+            return reader.GetInt32(i);
+        }
+        public static long TryGetLong(this SQLiteDataReader reader, int i)
+        {
+            if (reader.IsDBNull(i)) return 0;
+            return reader.GetInt64(i);
+        }
+
         public static List<Section> TryGetBlobParse(this SQLiteDataReader reader, int i)
         {
             if (reader.IsDBNull(i)) return null;

@@ -141,5 +141,33 @@ namespace WechatReader
             }
             return sessions;
         }
+
+        public List<Record> GetChatRecords(string hash)
+        {
+            var records = new List<Record>();
+            using (var cmd = new SQLiteCommand(
+                "SELECT MesLocalID,MesSvrID,CreateTime,Message,Status,ImgStatus,Type,Des FROM Chat_" + hash,
+                MMConn))
+            {
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        records.Add(new Record
+                        {
+                            MesLocalID = reader.TryGetInt(0),
+                            MesSvrID = reader.TryGetLong(1),
+                            CreateTime = reader.TryGetInt(2),
+                            Message = reader.TryGetString(3),
+                            Status = reader.TryGetInt(4),
+                            ImgStatus = reader.TryGetInt(5),
+                            Type = reader.TryGetInt(6),
+                            Des = reader.TryGetInt(7)
+                        });
+                    }
+                }
+            }
+            return records;
+        }
     }
 }

@@ -31,6 +31,8 @@ namespace ConsoleApp1
                     Console.WriteLine(friend.UsrName + " " + friend.Alias + " " + friend.NickName + " " + friend.ConRemark);
                 }
                 else Console.WriteLine(session);
+                var records = reader.GetChatRecords(session);
+                if (records.Count > 0) Console.WriteLine(records[0].DumpToString(session));
             }
             reader.Dispose();
             Console.WriteLine("OK");
