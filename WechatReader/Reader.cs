@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using NSKeyedUnarchiver;
+using System.Text.RegularExpressions;
 
 namespace WechatReader
 {
@@ -98,6 +99,47 @@ namespace WechatReader
                 }
             }
             return friends;
+        }
+
+        public List<Person> GetFriends()
+        {
+            var friends = GetMMFriends();
+            if (WCDBConn != null) friends.AddRange(GetWCDBFriends());
+            return friends;
+        }
+
+        public Dictionary<string, Person> GetFriendsDict()
+        {
+            var dict = new Dictionary<string, Person>();
+            foreach (var friend in GetFriends())
+            {
+                dict[friend.UsrName] = friend;
+                dict[Util.CreateMD5(friend.UsrName)] = friend;
+                if (!String.IsNullOrEmpty(friend.Alias))
+                {
+                    dict[friend.Alias] = friend;
+                    dict[Util.CreateMD5(friend.Alias)] = friend;
+                }
+            }
+            return dict;
+        }
+
+        public List<string> GetChatSessions()
+        {
+            var sessions = new List<string>();
+            using (var cmd = new SQLiteCommand("SELECT name FROM sqlite_master WHERE type='table'", MMConn))
+            {
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var name = reader.TryGetString(0);
+                        var match = Regex.Match(name, @"^Chat_([0-9a-f]{32})$");
+                        if (match.Success) sessions.Add(match.Groups[1].Value);
+                    }
+                }
+            }
+            return sessions;
         }
     }
 }
