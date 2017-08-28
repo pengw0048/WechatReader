@@ -5,6 +5,7 @@ using System.Data.SQLite;
 using System.IO;
 using NSKeyedUnarchiver;
 using System.Text.RegularExpressions;
+using WechatSharedClasses;
 
 namespace WechatReader
 {

@@ -1,4 +1,4 @@
-﻿namespace WechatReader
+﻿namespace WechatSharedClasses
 {
     // Represents a piece of record in a chat session.
     public class Record

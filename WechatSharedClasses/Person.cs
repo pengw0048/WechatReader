@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace WechatReader
+namespace WechatSharedClasses
 {
     // Represents a user.
     public class Person

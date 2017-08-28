@@ -2,14 +2,14 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.1.0</version>
+    <version>1.0.0</version>
     <title>$title$</title>
     <authors>Peng Wang</authors>
     <owners>Peng Wang</owners>
     <projectUrl>https://github.com/tiancaihb/WechatReader</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Read everything from iOS Wechat data folders.</description>
-    <releaseNotes>Separate structs with parsed data into another package.</releaseNotes>
+    <description>Classes carrying data parsed from Wechat databases. They are separated from WechatReader project so users don't necessarily need to depend on the entired library.</description>
+    <releaseNotes>Initial commit.</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>iOS Wechat</tags>
   </metadata>
